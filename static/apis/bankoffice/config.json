@@ -1,0 +1,8 @@
+{
+  "api": {
+    "upstream_url": "http://your.new.api/",
+    "name": "bankoffice",
+    "request_path": "/bankoffice"
+  },
+  "plugins": []
+}

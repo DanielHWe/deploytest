@@ -1,0 +1,21 @@
+{
+  "ipconfig": 3,
+  "ssl": 1,
+  "users": 3,
+  "auth": 3,
+  "groups": 3,
+  "plans": 3,
+  "apis": 3,
+  "recaptcha": 3,
+  "content": 0,
+  "email": 2,
+  "chatbot": 3,
+  "templates": 0,
+  "design": 3,
+  "envs": [
+    "default",
+    "localdev"
+  ],
+  "env": 3,
+  "deploy": 3
+}

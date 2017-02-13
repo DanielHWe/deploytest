@@ -1,0 +1,20 @@
+{
+  "groups": [
+    {
+      "id": "admin",
+      "name": "Administrator",
+      "alt_ids": [
+        "_ADFS_API_Admin"
+      ],
+      "adminGroup": true
+    },
+    {
+      "id": "dev",
+      "name": "Developer",
+      "alt_ids": [
+        "_ADFS_API_Developer",
+        "_HL_DEV"
+      ]
+    }
+  ]
+}

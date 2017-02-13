@@ -1,0 +1,8 @@
+{
+  "PORTAL_NETWORK_APIHOST": {
+    "value": "api.portal.local"
+  },
+  "PORTAL_NETWORK_PORTALHOST": {
+    "value": "portal.local"
+  }
+}
