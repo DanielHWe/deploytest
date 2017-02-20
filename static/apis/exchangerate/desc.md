@@ -1,0 +1,1 @@
+API that provides information about exchange rates. The exchange rates API is a readonly API. It provides a list of exchange rates.

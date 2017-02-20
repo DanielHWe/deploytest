@@ -1,0 +1,1 @@
+API that provides infomation about German Tax Offices. The taxoffice API is a readonly API. It provides a list of tax offices (Finanzämter) and their addresses.
