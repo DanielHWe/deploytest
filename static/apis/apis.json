@@ -41,6 +41,24 @@
       "auth": "key-auth",
       "tags": [],
       "plans": []
+    },
+    {
+      "id": "taxofficeinfo",
+      "name": "taxofficeinfo",
+      "desc": "API that provides infomation about German Tax Offices. The taxoffice API is a readonly API. It provides a list of tax offices (Finanzämter) and their addresses.",
+      "auth": "key-auth",
+      "tags": [],
+      "plans": []
+    },
+    {
+      "id": "exchangerate",
+      "name": "exchangerate",
+      "desc": "API that provides infomation about exchange rates. The exchange rates API is a readonly API. It provides a list of exchange rates.",
+      "auth": "key-auth",
+      "tags": [],
+      "plans": [
+              "unlimited"
+      ]
     }
   ],
   "_links": {

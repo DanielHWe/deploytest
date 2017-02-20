@@ -1,1 +1,1 @@
-Your **new** API. Describe it here.
+API that provides infomation about German Banks. The Bank API is a readonly API. It provides a list of German Banks and their addresses.

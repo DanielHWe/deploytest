@@ -33,7 +33,7 @@ services:
     restart: unless-stopped
 
   kong:
-    image: haufelexware/wicked.kong:latest
+    image: haufelexware/wicked.kong:0.11.2
     depends_on:
     - "kong-database"
     security_opt:
@@ -47,7 +47,7 @@ services:
     - "EXCLUDE_PORTS=7946,8001,8443"
     - "EXTRA_SETTINGS=http-request set-header X-Forwarded-Port %[dst_port]"
     - "SSL_CERT=${GATEWAY_PEM}"
-    command: "dockerize -timeout 30s -wait tcp://kong-database:5432 kong start"
+    command: bash -c "cat /docker-entrypoint.sh && dockerize -timeout 130s -wait tcp://kong-database:5432 kong start"
     restart: unless-stopped
 
   portal-api-data-static:
@@ -58,14 +58,14 @@ services:
     command: "/bin/true"
 
   portal-api-data-dynamic:
-    image: haufelexware/wicked.portal-api:latest
+    image: haufelexware/wicked.portal-api:0.11.2
     volumes:
     - "/var/portal-api/dynamic"
     command: "/bin/true"
 
   portal-api:
     env_file: variables.env  
-    image: haufelexware/wicked.portal-api:latest
+    image: haufelexware/wicked.portal-api:0.11.2
     volumes_from:
     - "portal-api-data-static"
     - "portal-api-data-dynamic"
@@ -73,7 +73,7 @@ services:
 
   portal:
     env_file: variables.env  
-    image: haufelexware/wicked.portal:latest
+    image: haufelexware/wicked.portal:0.11.2
     depends_on:
     - "portal-api"
     expose:
@@ -87,7 +87,7 @@ services:
 
   portal-kong-adapter:
     env_file: variables.env  
-    image: haufelexware/wicked.portal-kong-adapter:latest
+    image: haufelexware/wicked.portal-kong-adapter:0.11.2
     depends_on:
     - "portal-api"
     - "kong"
@@ -96,7 +96,7 @@ services:
 
   portal-mailer:
     env_file: variables.env  
-    image: haufelexware/wicked.portal-mailer:latest
+    image: haufelexware/wicked.portal-mailer:0.11.2
     restart: unless-stopped
     depends_on:
     - "portal-api"
@@ -104,7 +104,7 @@ services:
   
   portal-chatbot:
     env_file: variables.env  
-    image: haufelexware/wicked.portal-chatbot:latest
+    image: haufelexware/wicked.portal-chatbot:0.11.2
     restart: unless-stopped
     depends_on:
     - "portal-api"

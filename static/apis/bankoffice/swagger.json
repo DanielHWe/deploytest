@@ -1,15 +1,478 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "bankoffice",
-    "version": "1.0.0"
+    "version": "v1",
+    "title": "BankApi",
+    "description": "API that provides infomation about German Banks. The Bank API is a readonly API. It provides a list of German Banks and their addresses.",
+    "termsOfService": "",
+    "contact": {
+      "name": "Haufe-Lexware GmbH & Co. KG",
+      "url": "https://servicehub.haufe.io/"
+    }
   },
+  "host": "bankinfoapi.azurewebsites.net",
+  "schemes": [
+    "https"
+  ],
   "paths": {
-    "/newapi": {
+    "/bankinfo/v1": {
       "get": {
+        "tags": [
+          "bankinfo"
+        ],
+        "summary": "Returns all the actions which can be performed on this API",
+        "description": "Entry point for the BankInfo API.<br />\r\n                The API follows the rule described in <a target=\"_blank\" href=\" https://github.com/Haufe-Lexware/api-style-guide/blob/master/filtering-sorting-field-selection-and-paging.md\">Haufe API Style Guide</a>",
+        "operationId": "Basic Entry Point",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/hal+json",
+          "application/hal+xml"
+        ],
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BaseUrlListRepresentation"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/bankinfo/v1/banks/{bank_code}": {
+      "get": {
+        "tags": [
+          "bankinfo"
+        ],
+        "summary": "Search banks by bank code",
+        "description": "Returns a specific bank matching the bank code.",
+        "operationId": "Retrieve specific bank",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/xml",
+          "text/xml",
+          "application/hal+json",
+          "application/hal+xml"
+        ],
+        "parameters": [
+          {
+            "name": "bank_code",
+            "in": "path",
+            "description": "bank code as filter",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BankRepresentation"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/bankinfo/v1/search": {
+      "get": {
+        "tags": [
+          "bankinfo"
+        ],
+        "summary": "Get Banks info based on search term",
+        "description": "Returns a list of German Central bank  matching the search criteria <b>q</b>.<br />\r\n                All items where the search term in param <b>q</b> matches the bank_code, bank_name or postal_code are included.<br />\r\n                You can sort the list for example with <b>sort=-postal_code,+bank_name.</b><br />\r\n                Refer to <a target=\"_blank\" href=\" https://github.com/Haufe-Lexware/api-style-guide/blob/master/filtering-sorting-field-selection-and-paging.md\">Haufe API Style Guide</a> for a more detailed explanation.   \r\n                The resulting list of German Central bank  includes additional list and hypermedia information corresponding to <a target=\"_blank\" href=\" https://github.com/Haufe-Lexware/api-style-guide/blob/master/filtering-sorting-field-selection-and-paging.md\">Haufe API Style Guide</a>",
+        "operationId": "Search",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/hal+json",
+          "application/hal+xml"
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "search term",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "sort expression see <a target=\"_blank\" href=\" https://github.com/Haufe-Lexware/api-style-guide/blob/master/collection-resources.md\">Haufe API Style Guide</a>",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "page size used in the execution of the query.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number to deliver",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BankListRepresentation"
+            }
+          },
+          "204": {
+            "description": "No content when list is empty",
+            "schema": {
+              "$ref": "#/definitions/BankListRepresentation"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/bankinfo/v1/banks": {
+      "get": {
+        "tags": [
+          "bankinfo"
+        ],
+        "summary": "Get list of banks",
+        "description": "Returns a list of banks.<br />\r\n                You can filter the list with the params bank_code, postal_code and bank_name.<br />\r\n                You can sort the list for example with <b>sort=-postal_code,+bank_name.</b><br />   \r\n                Refer to <a target=\"_blank\" href=\" https://github.com/Haufe-Lexware/api-style-guide/blob/master/filtering-sorting-field-selection-and-paging.md\">Haufe API Style Guide</a> for a more detailed explanation.<br />\r\n                The resulting list of banks includes additional list and hypermedia information corresponding to <a target=\"_blank\" href=\" https://github.com/Haufe-Lexware/api-style-guide/blob/master/filtering-sorting-field-selection-and-paging.md\">Haufe API Style Guide</a>",
+        "operationId": "Retrieve banks",
+        "consumes": [],
+        "produces": [
+          "application/json",
+          "text/json",
+          "application/hal+json",
+          "application/hal+xml"
+        ],
+        "parameters": [
+          {
+            "name": "bank_code",
+            "in": "query",
+            "description": "bank code as filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bic",
+            "in": "query",
+            "description": "bic as filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "office_type",
+            "in": "query",
+            "description": "office_type as filter (main|branch|all) - default is main",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "postal_code",
+            "in": "query",
+            "description": "postal code as filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "bank_name",
+            "in": "query",
+            "description": "bank name as filter",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "refer to <a target=\"_blank\" href=\" https://github.com/Haufe-Lexware/api-style-guide/blob/master/filtering-sorting-field-selection-and-paging.md\">Haufe API Style Guide</a>.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "page size used in the execution of the query.",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "page number to deliver",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BankListRepresentation"
+            }
+          },
+          "204": {
+            "description": "No content when list is empty",
+            "schema": {
+              "$ref": "#/definitions/BankListRepresentation"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "BaseUrlListRepresentation": {
+      "description": "Showing all the",
+      "type": "object",
+      "properties": {
+        "welcome": {
+          "description": "API welcome message",
+          "type": "string",
+          "readOnly": true
+        },
+        "purpose": {
+          "description": "API purppose message",
+          "type": "string",
+          "readOnly": true
+        },
+        "copyright": {
+          "description": "API copyright message",
+          "type": "string",
+          "readOnly": true
+        },
+        "_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "_embedded": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmbeddedResource"
+          }
+        }
+      }
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "Curie": {
+          "$ref": "#/definitions/CuriesLink",
+          "readOnly": true
+        },
+        "Rel": {
+          "type": "string"
+        },
+        "Href": {
+          "type": "string"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "Deprecation": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Profile": {
+          "type": "string"
+        },
+        "HrefLang": {
+          "type": "string"
+        },
+        "IsTemplated": {
+          "type": "boolean",
+          "readOnly": true
+        }
+      }
+    },
+    "EmbeddedResource": {
+      "type": "object",
+      "properties": {
+        "IsSourceAnArray": {
+          "type": "boolean"
+        },
+        "Resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IResource"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "CuriesLink": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "readOnly": true
+        },
+        "Href": {
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "IResource": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        }
+      }
+    },
+    "BankRepresentation": {
+      "description": "",
+      "type": "object",
+      "properties": {
+        "bank_code": {
+          "description": "offical bank code",
+          "type": "string"
+        },
+        "feature": {
+          "description": "feature of bank",
+          "type": "string"
+        },
+        "office_type": {
+          "description": "Office type: main office (1) or branch office (2)",
+          "type": "string"
+        },
+        "given_name": {
+          "description": "name of bank",
+          "type": "string"
+        },
+        "postal_code": {
+          "description": "postal code of bank",
+          "type": "string"
+        },
+        "location": {
+          "description": "location of bank",
+          "type": "string"
+        },
+        "short_name": {
+          "description": "short name of bank",
+          "type": "string"
+        },
+        "pan": {
+          "description": "PAN of bank",
+          "type": "string"
+        },
+        "bic": {
+          "description": "BIC of bank",
+          "type": "string"
+        },
+        "check_digit": {
+          "description": "check digit of bank",
+          "type": "string"
+        },
+        "record_number": {
+          "description": "record number of bank",
+          "type": "string"
+        },
+        "change_mark": {
+          "description": "change mark of bank",
+          "type": "string"
+        },
+        "bank_code_ext": {
+          "description": "bank code ext of bank",
+          "type": "string"
+        },
+        "successor_bank_code": {
+          "description": "successor bank code of bank",
+          "type": "string"
+        },
+        "_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "_embedded": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmbeddedResource"
+          }
+        }
+      }
+    },
+    "BankListRepresentation": {
+      "description": "For HAL response.",
+      "type": "object",
+      "properties": {
+        "total_count": {
+          "format": "int32",
+          "description": "total number of records in response",
+          "type": "integer"
+        },
+        "total_pages": {
+          "format": "int32",
+          "description": "total number of pages in response",
+          "type": "integer"
+        },
+        "page": {
+          "format": "int32",
+          "description": "current page number",
+          "type": "integer"
+        },
+        "page_size": {
+          "format": "int32",
+          "description": "page size of the response, number of records on the current page",
+          "type": "integer"
+        },
+        "ResourceList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BankRepresentation"
+          }
+        },
+        "_links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "_embedded": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmbeddedResource"
           }
         }
       }

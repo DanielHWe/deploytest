@@ -34,7 +34,6 @@
       "id": "unlimited",
       "name": "Unlimited Plan",
       "desc": "Unlimited access to the API, no limits in terms of calls.",
-      "needsApproval": true,
       "config": {
         "plugins": []
       }

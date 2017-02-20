@@ -1,7 +1,7 @@
 {
   "api": {
-    "upstream_url": "http://your.new.api/",
     "name": "bankoffice",
+    "upstream_url": "https://bankinfoapi.azurewebsites.net/",
     "request_path": "/bankoffice"
   },
   "plugins": []
