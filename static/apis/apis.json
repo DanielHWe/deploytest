@@ -40,7 +40,11 @@
       "desc": "bankoffice",
       "auth": "key-auth",
       "tags": [],
-      "plans": []
+      "plans": [
+        "basic",
+        "stupid",
+        "unlimited"
+      ]
     },
     {
       "id": "taxofficeinfo",
@@ -48,7 +52,11 @@
       "desc": "API that provides infomation about German Tax Offices. The taxoffice API is a readonly API. It provides a list of tax offices (Finanzämter) and their addresses.",
       "auth": "key-auth",
       "tags": [],
-      "plans": []
+      "plans": [
+        "basic",
+        "stupid",
+        "unlimited"
+      ]
     },
     {
       "id": "exchangerate",
@@ -57,7 +65,9 @@
       "auth": "key-auth",
       "tags": [],
       "plans": [
-              "unlimited"
+        "basic",
+        "stupid",
+        "unlimited"
       ]
     }
   ],

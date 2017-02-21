@@ -1,8 +1,10 @@
 {
   "api": {
     "name": "exchangerate",
-    "upstream_url": "http://exchangeratesapi.azurewebsites.net/api/v1",
-    "request_path": "/exchangerate"
+    "upstream_url": "http://exchangeratesapi.azurewebsites.net",
+    "request_path": "/exchangerate",
+    "preserve_host": false,
+    "strip_request_path": true
   },
   "plugins": []
 }

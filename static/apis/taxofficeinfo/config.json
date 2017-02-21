@@ -1,8 +1,10 @@
 {
   "api": {
     "name": "taxofficeinfo",
-    "upstream_url": "https://servicehub-api.haufe.io/TaxAPI/taxofficeinfo",
-    "request_path": "/taxofficeinfo"
+    "upstream_url": "https://taxofficeapi.azurewebsites.net",
+    "request_path": "/taxofficeinfo",
+    "preserve_host": false,
+    "strip_request_path": true
   },
   "plugins": []
 }

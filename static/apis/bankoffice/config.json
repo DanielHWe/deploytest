@@ -2,7 +2,9 @@
   "api": {
     "name": "bankoffice",
     "upstream_url": "https://bankinfoapi.azurewebsites.net/",
-    "request_path": "/bankoffice"
+    "request_path": "/bankoffice",
+    "preserve_host": false,
+    "strip_request_path": true
   },
   "plugins": []
 }

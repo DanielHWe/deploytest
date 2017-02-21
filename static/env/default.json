@@ -29,7 +29,7 @@
     "value": "http://portal-mailer:3003"
   },
   "PORTAL_NETWORK_APIHOST": {
-    "value": "api.portal.local"
+    "value": "portal.local.api"
   },
   "PORTAL_NETWORK_PORTALHOST": {
     "value": "portal.local"
